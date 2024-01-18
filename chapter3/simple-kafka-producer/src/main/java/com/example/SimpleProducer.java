@@ -36,6 +36,17 @@ public class SimpleProducer {
 //        제네릭 타입은 키와 벨류가 들어간다 [현재 메세지 키는 null]
         ProducerRecord<String, String> record = new ProducerRecord<>(TOPIC_NAME, messageValue);
 
+//        메세지 키값이 존재하는 레코드로 전송
+//        토픽이름, 키, 값
+//        키값이 같으면 같은 파티션에 적재
+        ProducerRecord<String, String> keyRecord = new ProducerRecord<>("test", "Pangyo", "23");
+        
+//        적재 파티션 지정 
+//        토픽이름, 파티션 번호, 키, 값 
+//        파티션 번호는 토픽에 존재하는 파티션 번호로 설정해야함
+        int partitionNo = 0;
+        ProducerRecord<String, String> partitionRecord = new ProducerRecord<>(TOPIC_NAME, partitionNo, "key", messageValue);
+
 //        send 메서드를 호출한다고 바로 전송되는 방식이 아니라 producer 객체에 담음 
 //        배치 전송을 위함
         producer.send(record);
