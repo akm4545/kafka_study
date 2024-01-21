@@ -24,7 +24,11 @@ public class ConsumerWithSyncOffsetCommit {
 
     private static KafkaConsumer<String, String> consumer;
 
+//    애플리케이션이 정상적으로 종료되지 않는다면 컨슈머는 세션 타임아웃이 발생할때까지 컨슈머 그룹에 남는다
+//    실제로는 종료되었지만 더는 동작을 하지 않는 컨슈머가 존재하여 파티션의 데이터는 소모되지 않는다
+//    컨슈머 랙이 늘어나게 된다 -> 데이터 처리 지연 발생
     public static void main(String[] args){
+//        addShutdownHook 자바 애플리케이션이 사용자 또는 운영체제로부터 종료 요청을 받으면 실행하는 쓰레드
         Runtime.getRuntime().addShutdownHook(new ShutdownThread());
 
         Properties configs = new Properties();
@@ -39,6 +43,8 @@ public class ConsumerWithSyncOffsetCommit {
 
         try {
             while (true){
+//                poll로 레코드를 지속적으로 처리하다가 종료 요청이 들어오면 위에 등록한
+//                셧다운 훅이 작동
                 ConsumerRecords<String, String> records = consumer.poll(Duration.ofSeconds(1));
 
                 for(ConsumerRecord<String, String> record : records){
@@ -51,6 +57,7 @@ public class ConsumerWithSyncOffsetCommit {
             logger.warn("Wakeup consumer");
         }finally {
             logger.warn("Consumer close");
+//            사용 리소스 해제
             consumer.close();
         }
     }
@@ -58,6 +65,7 @@ public class ConsumerWithSyncOffsetCommit {
     static class ShutdownThread extends Thread {
         public void run(){
             logger.info("Shutdown hook");
+//            wakeup 메서드가 호출되면 다음 poll 메서드 호출 시 wakeupException을 발생
             consumer.wakeup();
         }
     }
