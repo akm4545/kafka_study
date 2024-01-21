@@ -29,6 +29,10 @@ public class ConsumerWithExactPartition {
         configs.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
 
         KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(configs);
+        
+//        파티션을 컨슈머에게 명시적으로 할당할때 사용
+//        해당 구문은 test토픽의 0번 파티션 레코드를 가져오는 구문
+//        컨슈머가 특정 토픽, 특정 파티션에 할당되므로 리벨런싱 과정이 없다
         consumer.assign(Collections.singleton(new TopicPartition(TOPIC_NAME, PARTITION_NUMBER)));
 
         while (true){
