@@ -10,8 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
-import java.util.Collections;
-import java.util.Properties;
+import java.util.*;
 
 public class ConsumerWithExactPartition {
     private final static Logger logger = LoggerFactory.getLogger(ConsumerWithExactPartition.class);
@@ -34,6 +33,12 @@ public class ConsumerWithExactPartition {
 //        해당 구문은 test토픽의 0번 파티션 레코드를 가져오는 구문
 //        컨슈머가 특정 토픽, 특정 파티션에 할당되므로 리벨런싱 과정이 없다
         consumer.assign(Collections.singleton(new TopicPartition(TOPIC_NAME, PARTITION_NUMBER)));
+
+//        컨슈머에 할당된 토픽과 파티션 정보 확인
+//        KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(configs);
+//        consumer.subscribe(Arrays.asList(TOPIC_NAME));
+//        토픽 이름과 파티션 정보가 포함된 TopicPartition 객체 반환
+//        Set<TopicPartition> assignedTopicPartition = consumer.assignment();
 
         while (true){
             ConsumerRecords<String, String> records = consumer.poll(Duration.ofSeconds(1));
