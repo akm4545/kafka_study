@@ -45,6 +45,6 @@ public class SimpleStreamApplication {
 //        위에서 설정한 토폴리지에 대한 정보와 스트림즈 실행을 위한 기본 옵션을 파라미터로 KafkaStreams 생성
         KafkaStreams streams = new KafkaStreams(builder.build(), props);
 //        인스턴스 실행 (stream_log 토픽의 데이터를 stream_log_copy 토픽으로 전달)
-        streams.state();
+        streams.start();
     }
 }
