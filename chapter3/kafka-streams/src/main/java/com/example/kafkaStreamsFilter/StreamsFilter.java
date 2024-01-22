@@ -1,4 +1,4 @@
-package com.example;
+package com.example.kafkaStreamsFilter;
 
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KafkaStreams;
