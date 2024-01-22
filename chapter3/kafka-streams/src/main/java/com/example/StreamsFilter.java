@@ -27,6 +27,8 @@ public class StreamsFilter {
         StreamsBuilder builder = new StreamsBuilder();
         KStream<String, String> streamLog = builder.stream(STREAM_LOG);
 
+//        스트림 프로세서 (정보 가공) 추가
+//        메세지 길이가 5보다 큰 경우로 필터링
         streamLog.filter((key, value) -> value.length() > 5)
                 .to(STREAM_LOG_FILTER);
 
