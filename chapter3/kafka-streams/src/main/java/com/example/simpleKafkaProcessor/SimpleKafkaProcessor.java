@@ -23,9 +23,18 @@ public class SimpleKafkaProcessor {
         props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
         props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
 
+//        프로세서 API를 사용한 토폴로지를 구성하기 위해 선언
         Topology topology = new Topology();
+//        소스 프로세서를 가져오기 위한 구문 (데이터 읽어오기)
+//        첫번째 파라미터 = 소스 프로세서의 이름
+//        두번째 파라미터 = 대상 토픽 이름
         topology.addSource("Source", STREAM_LOG)
+//                스트림 프로세서를 사용하기 위한 구문 (데이터 처리)
+//                첫번째 파라미터 = 스트림 프로세서의 이름
+//                두번째 파라미터 = 사용자가 정의한 프로세서 인스턴스
+//                세번째 파라미터 = 부모 노드
                 .addProcessor("Process", () -> new FilterProcessor(), "Source")
+//                싱크 프로세서를 사용하기 위한 구문 (데이터 가공)
                 .addSink("Sink", STREAM_LOG_FILTER, "Process");
 
         KafkaStreams streaming = new KafkaStreams(topology, props);
