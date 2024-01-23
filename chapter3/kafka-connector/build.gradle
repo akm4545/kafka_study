@@ -18,6 +18,16 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.apache.kafka:connect-api:2.5.0'
+    implementation 'org.slf4j:slf4j-simple:1.7.30'
+}
+
+//카프카 커넥터를 직접 개발하고 플러그인으로 커넥트에 추가할 때 참조하는 라이브러리도 같이 빌드하지 않으면 
+//예외가 발생한다
+jar{
+    from{
+        configurations.comile.collect{ it.isDirectory() ? it : zipTree(it)}
+    }
 }
 
 tasks.named('test') {
