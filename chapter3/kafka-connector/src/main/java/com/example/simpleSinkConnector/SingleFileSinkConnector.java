@@ -21,6 +21,8 @@ public class SingleFileSinkConnector extends SinkConnector {
         return "1.0";
     }
 
+//    커넥트에서 SingleFileSinkConnector 커넥터를 생성할 때 받은 설정값들을 초기화한다
+//    설정이 잘못되었다면 ConnectException예외를 발생시켜 종료시킨다 
     @Override
     public void start(Map<String, String> props) {
         this.configProperties = props;
@@ -28,15 +30,17 @@ public class SingleFileSinkConnector extends SinkConnector {
         try{
             new SingleFileSinkConnectorConfig(props);
         }catch (ConfigException e){
-            throw  new ConnectException(e.getMessage(), e);
+            throw new ConnectException(e.getMessage(), e);
         }
     }
 
+//    커넥터가 사용할 테스크 클래스
     @Override
     public Class<? extends Task> taskClass() {
         return SingleFileSourceTask.class;
     }
 
+//    테스크 설정값
     @Override
     public List<Map<String, String>> taskConfigs(int maxTasks) {
         List<Map<String, String>> taskConfigs = new ArrayList<>();
@@ -50,6 +54,7 @@ public class SingleFileSinkConnector extends SinkConnector {
         return taskConfigs;
     }
 
+//    커넥터에서 사용할 설정값
     @Override
     public ConfigDef config() {
         return SingleFileSinkConnectorConfig.CONFIG;
