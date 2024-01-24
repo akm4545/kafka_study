@@ -30,17 +30,21 @@ public class SingleFileSourceConnector extends SourceConnector {
     public void start(Map<String, String> props) {
         this.configProperties = props;
         try {
+//            커넥트에서 SingleFileSourceConnector 커넥터를 생성할 때 받은 설정값 초기화
             new SingleFileSourceConnectorConfig(props);
         } catch (ConfigException e) {
+//            필수값이 빠져있다면 예외를 발생시켜 커넥터 종료
             throw new ConnectException(e.getMessage(), e);
         }
     }
 
+//    테스크 클래스 이름 지정
     @Override
     public Class<? extends Task> taskClass() {
         return SingleFileSourceTask.class;
     }
 
+//    테스크가 2개 이상이더라도 동일한 설정값을 받도록 ArrayList에 동일한 설정
     @Override
     public List<Map<String, String>> taskConfigs(int maxTasks) {
         List<Map<String, String>> taskConfigs = new ArrayList<>();
@@ -51,7 +55,8 @@ public class SingleFileSourceConnector extends SourceConnector {
         }
         return taskConfigs;
     }
-
+    
+//    커넥터에서 사용할 설정값 지정
     @Override
     public ConfigDef config() {
         return SingleFileSourceConnectorConfig.CONFIG;
