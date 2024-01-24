@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+//소스 커넥터 = 소스 파일이나 애플리케이션으로부터 데이터를 읽어 토픽으로 전송하는 커넥터
 public class SingleFileSourceConnector extends SourceConnector {
 
     private final Logger logger = LoggerFactory.getLogger(SingleFileSourceConnector.class);
