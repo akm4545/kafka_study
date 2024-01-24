@@ -1,13 +1,15 @@
-package com.example.simpleSourceConnector;
+package com.example;
 
+import com.example.simpleSourceConnector.SingleFileSourceConnectorConfig;
+import com.example.simpleSourceConnector.SingleFileSourceTask;
 import org.apache.kafka.common.config.ConfigDef;
 import org.apache.kafka.common.config.ConfigException;
 import org.apache.kafka.connect.connector.Task;
+import org.apache.kafka.connect.errors.ConnectException;
 import org.apache.kafka.connect.source.SourceConnector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.net.ConnectException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,10 +29,9 @@ public class SingleFileSourceConnector extends SourceConnector {
     @Override
     public void start(Map<String, String> props) {
         this.configProperties = props;
-
-        try{
+        try {
             new SingleFileSourceConnectorConfig(props);
-        }catch (ConfigException e){
+        } catch (ConfigException e) {
             throw new ConnectException(e.getMessage(), e);
         }
     }
@@ -45,11 +46,9 @@ public class SingleFileSourceConnector extends SourceConnector {
         List<Map<String, String>> taskConfigs = new ArrayList<>();
         Map<String, String> taskProps = new HashMap<>();
         taskProps.putAll(configProperties);
-
         for (int i = 0; i < maxTasks; i++) {
             taskConfigs.add(taskProps);
         }
-
         return taskConfigs;
     }
 
@@ -60,6 +59,5 @@ public class SingleFileSourceConnector extends SourceConnector {
 
     @Override
     public void stop() {
-
     }
 }

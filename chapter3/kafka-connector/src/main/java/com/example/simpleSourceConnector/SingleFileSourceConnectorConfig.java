@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class SingleFileSourceConnectorConfig extends AbstractConfig {
 
-    private static final String DIR_FILE_NAME = "file";
+    public static final String DIR_FILE_NAME = "file";
 
     private static final String DIR_FILE_NAME_DEFAULT_VALUE = "/tmp/kafka.txt";
 
