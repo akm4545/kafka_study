@@ -1,0 +1,22 @@
+컨슈머 랙 모니터링은 카프카를 통한 데이터 파이프라인 운영시 핵심 역할을 한다 
+랙 모니터링을 통해 컨슈머의 장애를 확인하고 파티션의 개수를 정하는데 참고할 수 있기 때문이다
+
+컨슈머 랙 모니터링 아키텍처 준비물 
+버로우: REST API를 통해 컨슈머 랙 조회
+저장소[인플럭스 디비, 엘라스틱서치, 텔레그래프 등]: 버로우로 수집한 랙 데이터를 저장
+대시보드:[그라파나, 키바나 등]: 저장한 데이터를 시각화
+추가로 이상이 생기면 알람을 라인, 슬랙 등으로 받을 수 있게 설정할 수 있다
+
+텔레그래프 설정 
+[[inputs.burrow]]
+  servers = ["http://{버로우 호스트}:8000"]
+  topics_exclude = [ "__consumer_offsets" ]
+  groups_exclude = ["console-*"]
+
+[[outputs.elasticsearch]]
+  urls = [ "http://{엘라스틱서치 호스트}:9200" ]
+  timeout = "5s"
+  enable_sniffer = false
+  health_check_interval = "10s"
+  index_name = "burrow-$Y.$m.$d"
+  manage_template = false
