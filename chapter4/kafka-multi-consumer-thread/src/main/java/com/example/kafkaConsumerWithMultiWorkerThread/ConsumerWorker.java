@@ -3,6 +3,7 @@ package com.example.kafkaConsumerWithMultiWorkerThread;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+//데이터를  처리하는 쓰레드
 public class ConsumerWorker implements Runnable{
 
     private final static Logger logger = LoggerFactory.getLogger(ConsumerWorker.class);
