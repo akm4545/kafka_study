@@ -1,0 +1,17 @@
+spring:
+  kafka:
+    consumer:
+      bootstrap-servers: 192.168.1.10:9092
+    listener:
+#      스프링 카프카에서는 커밋이라 부르지 않고 ack-mode라고 부른다
+#      RECORD = 레코드 단위로 프로세싱 이후 커밋
+#      BATCH = poll메서드로 호출된 레코드가 모두 처리된 이후 커밋 (기본값)
+#      TIME = 특정 시간 이후에 커밋 (시간 간격을 선언하는 AckTime 옵션을 설정해야함)
+#      COUNT = 특정 개수만큼 레코드가 처리된 이후에 커밋 (개수를 선언하는 AckCount 옵션을 설정해야함)
+#      COUNT_TIME = TIME, COUNT 옵션 중 맞는 조건이 하나라도 있으면 커밋
+#      MANUAL = Acknowledgement.acknowledge() 메서드가 호출되면 다음번 poll 때 커밋
+#      매번 호출하면 BATCH 옵션과 동일하게 동작
+#      MANUAL_IMMEDIATE = Acknowledgement.acknowledge() 호출 즉시 커밋
+#      MANUAL이 들어간 모드로 구현 시 AcknowledgingMessageListener 또는 BatchAcknowledgingMessageListener 를 리스너로 사용해야함
+      ack-mode: MANUAL_IMMEDIATE
+      type: RECORD
