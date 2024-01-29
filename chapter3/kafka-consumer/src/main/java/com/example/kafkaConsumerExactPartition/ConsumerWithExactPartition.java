@@ -39,7 +39,6 @@ public class ConsumerWithExactPartition {
 //        consumer.subscribe(Arrays.asList(TOPIC_NAME));
 //        토픽 이름과 파티션 정보가 포함된 TopicPartition 객체 반환
 //        Set<TopicPartition> assignedTopicPartition = consumer.assignment();
-
         while (true){
             ConsumerRecords<String, String> records = consumer.poll(Duration.ofSeconds(1));
 
