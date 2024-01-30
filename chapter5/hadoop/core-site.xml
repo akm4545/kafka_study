@@ -1,0 +1,8 @@
+
+기본 파일 시스템을 하둡으로 설정
+<configuration>
+  <property>
+    <name>fs.defaultFS</name>
+    <value>hdfs://localhost:9000</value>
+  </property>
+</configuration>
