@@ -14,10 +14,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @RestController
+//cors 해제
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ProduceController {
     private final Logger logger = LoggerFactory.getLogger(ProduceController.class);
 
+//    카프카 템플릿 생성
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     public ProduceController(KafkaTemplate<String, String> kafkaTemplate){
@@ -34,6 +36,9 @@ public class ProduceController {
         Gson gson = new Gson();
         UserEventVO userEventVO = new UserEventVO(sdfDate.format(now), userAgentName, colorName, userName);
         String jsonColorLog = gson.toJson(userEventVO);
+        
+//        템플릿으로 데이터 전송
+//        정상전송 여부 확인을 위해 addCallback 추가
         kafkaTemplate.send("select-color", jsonColorLog).addCallback(new ListenableFutureCallback<SendResult<String, String>>() {
             @Override
             public void onSuccess(SendResult<String, String> result) {
