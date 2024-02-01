@@ -18,6 +18,8 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.apache.kafka:kafka-clients:2.5.0'
+    implementation 'org.apache.hadoop:hadoop-client:3.3.0'
 }
 
 tasks.named('test') {
