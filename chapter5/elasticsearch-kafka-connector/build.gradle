@@ -23,6 +23,7 @@ dependencies {
     implementation 'org.elasticsearch.client:elasticsearch-rest-high-level-client:7.9.2'
 }
 
+//jar 파일로 빌드하고 카프카에 추가해야 한다
 jar {
     from {
         configurations.compile.collect {it.isDirectory() ? it : zipTree(it)}
