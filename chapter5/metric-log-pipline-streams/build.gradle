@@ -18,6 +18,8 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.apache.kafka:kafka-streams:2.5.0'
+    implementation 'com.google.code.gson:gson:2.8.0'
 }
 
 tasks.named('test') {
