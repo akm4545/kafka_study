@@ -20,6 +20,10 @@ import java.util.Map;
 
 //커넥터를 생성했을 때 최초로 실행
 //태스크를 실행하기 위한 이전 단계로써 설정값을 확인하고 태스크 클래스를 지정하는 역할 수행
+
+//jar 파일로 빌드 -> 카프카 커넥트가 참조할 수 있는 디렉토리로 이동 -> 분산 모드 카프카 커넥트 설정파일 수정 (connect-distributed.properties)
+// -> 분산 모드 카프카 커넥트에 REST API로 요청하여 커넥터 실행
+// ex) curl -L -X POST 'localhost:8083/connectoers' \-H 'Content-Type: application/json' \ ...
 public class ElasticSearchSinkConnector extends SinkConnector {
 
     private final Logger logger = LoggerFactory.getLogger(ElasticSearchSinkConnector.class);
