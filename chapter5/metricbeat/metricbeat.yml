@@ -1,0 +1,13 @@
+# 서버의 지표를 수집하기 위해 메트릭비트 사용
+# 메트릭비트 설정
+metricbeat.modules:
+- module: system
+metricsets:
+  - cpu
+  - memory
+enabled: true
+period: 10s
+
+output.kafka:
+  hosts: ["카프카 주소"]
+  topic: 'metric.all'
