@@ -3,6 +3,7 @@ package com.pipline;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+//메트릭의 데이터를 추출하는 클래스
 public class MetricJsonUtils {
 
     public static double getTotalCpuPercent(String value){
